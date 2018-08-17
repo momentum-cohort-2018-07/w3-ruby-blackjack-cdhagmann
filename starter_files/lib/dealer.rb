@@ -19,21 +19,6 @@ class Dealer
     player.hand.add(@deck.draw)
   end 
 
-  def take_turn
-    deal(self)
-    
-    while hand_value < 17 do
-      puts "The Dealer hits."
-      hit(self)
-    end
-    
-    if busted?
-      puts "The Dealer busts."
-    else
-      print "The Dealer stands."
-    end
-  end 
-
   def busted?
     hand_value > 21
   end
@@ -42,7 +27,8 @@ class Dealer
     @hand.value
   end
 
-  def shuffle
+  def shuffle(player)
+    player.hand.clear
     @deck.shuffle
     @hand.clear
   end

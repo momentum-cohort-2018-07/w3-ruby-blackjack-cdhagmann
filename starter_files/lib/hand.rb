@@ -25,7 +25,7 @@ class Hand
 	end
 
   def to_s
-    hand_string = @hand.sort.map { |card| card.to_s }
+    hand_string = @hand.map { |card| card.to_s }
 
     if hand_string.length > 1
       hand_string[-1] = 'and ' + hand_string[-1]
@@ -39,7 +39,7 @@ class Hand
   end
 
   def inspect
-    "Hand(#{self.to_s}, value: #{self.value})"
+    "Hand(#{self.to_s}; value: #{self.value})"
   end
 
   def busted?

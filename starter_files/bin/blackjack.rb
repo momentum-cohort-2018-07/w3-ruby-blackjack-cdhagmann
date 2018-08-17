@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
 require_relative '../blackjack'
 
-BlackjackGame.new
+bj = BlackjackGame.new
+bj.run

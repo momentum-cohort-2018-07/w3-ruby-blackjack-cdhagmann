@@ -2,44 +2,62 @@ require_relative "lib/dealer"
 require_relative "lib/player"
 
 class BlackjackGame
-  attr_accessor :dealer, :player
+	attr_accessor :dealer, :player
 
-  def initialize
-    @dealer = Dealer.new
-    @player = Player.new
-  end
+	def initialize
+		@dealer = Dealer.new
+		@player = Player.new
+	end
 
-  def dealer_turn
-    @dealer.deal(@dealer)
-    
-    while @dealer.hand_value < 17 do
-      puts "The Dealer hits."
-      @dealer.hit(@dealer)
-    end
-    
-    if @dealer.busted?
-      puts "The Dealer busts."
-    else
-      print "The Dealer stands."
-    end
-  end 
+	def dealer_turn
+		@dealer.deal(@dealer)
+		while @dealer.hand_value < 17 do
+			puts "The Dealer hits."
+			@dealer.hit(@dealer)
+		end
+		if @dealer.busted?
+			puts "The Dealer busts."
+		else
+			print "The Dealer stands.  The dealer has a total of #{@dealer.hand_value}."
+		end
+	end 
 
-  def player_turn
-    @dealer.deal(@player)
-    while !@player.busted?
-      puts "You have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
-      if @player.hit?
-        @dealer.hit(@player)
-        puts "Youn now have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
-      else
-        puts "You stand. Your total is #{@player.hand_value}."
-      end
-      if @player.busted?
-        puts "You busted!"
-      end
-    end
-  end 
+	def player_turn
+		@dealer.deal(@player)
+		while !@player.busted?
+			puts "You have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
+			if @player.hit?
+				@dealer.hit(@player)
+				puts "You now have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
+			else
+				puts "You stand. Your total is #{@player.hand_value}.\n\n"
+				break
+			end
+			if @player.busted?
+				puts "You busted!\n"
+			end
+		end
+	end 
 
+	def run
+		while @player.bank > 10
+			@player.bank -= 10
+			puts "You have $#{@player.bank} and you bet $10."
+			player_turn
+			if !@player.busted?
+				dealer_turn
+				if !@dealer.busted? and @dealer.hand_value >= @player.hand_value
+
+					puts "You lose!"
+				else
+					puts "You won!"
+					@player.bank += 20
+				end
+			end
+			puts "\n---\n\n"
+			@dealer.shuffle(@player)
+		end
+	end
 end
 
 

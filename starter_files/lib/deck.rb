@@ -2,7 +2,7 @@ require_relative "card"
 
 class Deck
 	def initialize
-		@deck = new_deck
+		@deck = self.new_deck
     @deck.shuffle!
 	end
 
@@ -25,7 +25,7 @@ class Deck
 	end
 
 	def shuffle
-		@deck = new_deck
+		@deck = self.new_deck
     @deck.shuffle!
 	end
 end

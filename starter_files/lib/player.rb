@@ -34,7 +34,6 @@ class Player
   end
 
 end
-
 =begin
 You have $90 and bet $10.
 You have an A and a 7 in your hand. Your total is 18.
