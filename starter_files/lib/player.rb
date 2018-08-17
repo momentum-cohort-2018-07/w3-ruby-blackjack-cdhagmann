@@ -10,7 +10,7 @@ class Player
  
   def hit?
     while true
-      print "Do you want to (h)it or (s)tand?"
+      print "Do you want to (h)it or (s)tand? "
       answer = gets.chomp.downcase
       if answer[0] == "h"
         return true
@@ -23,10 +23,6 @@ class Player
 
   def busted?
     hand_value > 21
-  end
-
-  def hand_value
-    @hand.value
   end
 
   def hand_value

@@ -28,32 +28,33 @@ class BlackjackGame
 			puts "You have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
 			if @player.hit?
 				@dealer.hit(@player)
-				puts "You now have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
+				puts 
 			else
 				puts "You stand. Your total is #{@player.hand_value}.\n\n"
 				break
 			end
 			if @player.busted?
-				puts "You busted!\n"
+				puts "You now have a #{@player.hand} in your hand. Your total is #{@player.hand_value}. You busted!\n"
 			end
 		end
 	end 
 
 	def run
+		puts "Welcome to Blackjack!!\n\n"
 		while @player.bank > 10
-			@player.bank -= 10
 			puts "You have $#{@player.bank} and you bet $10."
+			@player.bank -= 10
 			player_turn
 			if !@player.busted?
 				dealer_turn
 				if !@dealer.busted? and @dealer.hand_value >= @player.hand_value
-
 					puts "You lose!"
 				else
 					puts "You won!"
 					@player.bank += 20
 				end
 			end
+			sleep(2)
 			puts "\n---\n\n"
 			@dealer.shuffle(@player)
 		end
