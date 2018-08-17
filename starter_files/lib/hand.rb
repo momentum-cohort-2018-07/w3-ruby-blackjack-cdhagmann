@@ -14,7 +14,7 @@ class Hand
 				value += card.value
 			end
 		end
-    if value < 11 && ace_count > 0
+    if value <= 11 && ace_count > 0
       value += 10
     end
 		value

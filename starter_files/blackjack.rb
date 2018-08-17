@@ -41,7 +41,7 @@ class BlackjackGame
 
 	def run
 		puts "Welcome to Blackjack!!\n\n"
-		while @player.bank > 10
+		while @player.bank > 0
 			puts "You have $#{@player.bank} and you bet $10."
 			@player.bank -= 10
 			player_turn
