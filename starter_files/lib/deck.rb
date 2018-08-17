@@ -1,46 +1,31 @@
 require_relative "card"
 
-class Dealer
-
-	attr_reader :hand, :deck
-
+class Deck
 	def initialize
-		@deck = Deck.new
-    @hand = Hand.new
+		@deck = new_deck
+    @deck.shuffle!
 	end
 
-  def deal(player)
-    2.times { self.hit(player) }
-  end
-
-	def hit(player)
-		player.hand.add(@deck.draw)
-	end 
-
-	def take_turn
-    self.deal(self)
-		while @hand.value < 17 do
-			puts "The Dealer hits."
-			self.hit(self)
+	def new_deck
+		deck = []
+		[:clubs, :diamonds, :hearts, :spades].reverse.each do |suit|
+			[:A, 2, 3, 4, 5, 6, 7, 8, 9, 10, :J, :Q, :K].reverse.each do |rank|
+				deck << Card.new(rank, suit)
+			end
 		end
-		if self.hand_value > 21
-			puts "The Dealer busts."
-		else
-			print "The Dealer stands."
-		end
-	end 
-
-	def busted?
-		hand_value > 21
+		deck
 	end
 
-	def hand_value
-		@hand.value
+  def cards_left
+		@deck.length
+	end
+
+	def draw
+		@deck.pop
 	end
 
 	def shuffle
-		@deck.shuffle
-		@hand.clear
+		@deck = new_deck
+    @deck.shuffle!
 	end
-
 end

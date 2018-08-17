@@ -25,11 +25,17 @@ class Hand
 	end
 
   def to_s
-    hand_string = []
-    @hand.each do |card|
-      hand_string << card.to_s
+    hand_string = @hand.sort.map { |card| card.to_s }
+
+    if hand_string.length > 1
+      hand_string[-1] = 'and ' + hand_string[-1]
     end
-    hand_string.join(", ")
+    
+    if hand_string.length > 2
+      hand_string.join(", ")
+    else
+      hand_string.join(' ')
+    end  
   end
 
   def inspect

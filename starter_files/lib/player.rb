@@ -7,16 +7,19 @@ class Player
     @hand = Hand.new
     @bank = 100
   end
-
-  def take_turn
-     while @hand.value < 17 do
-        if @hand.length > 2
-          puts "The Dealer hits."
-        end
-        self.deal(self)
-     end
-     puts "The Dealer stands."
-  end 
+ 
+  def hit?
+    while true
+      print "Do you want to (h)it or (s)tand?"
+      answer = gets.chomp.downcase
+      if answer[0] == "h"
+        return true
+      elsif answer[0] == "s"
+        return false
+      end
+      puts "That is not a valid answer!"
+    end
+  end
 
   def busted?
     hand_value > 21
@@ -31,3 +34,15 @@ class Player
   end
 
 end
+
+=begin
+You have $90 and bet $10.
+You have an A and a 7 in your hand. Your total is 18.
+Do you want to (h)it or (s)tand? H
+
+You hit. You now have an A, 7, and 9 in your hand. Your total is 17.
+Do you want to (h)it or (s)tand? H
+
+You hit. You now have an A, 7, 9, and 5 in your hand. Your total is 22.
+You bust!
+=end

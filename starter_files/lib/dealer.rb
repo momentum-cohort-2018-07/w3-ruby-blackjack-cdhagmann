@@ -1,44 +1,50 @@
 require_relative "deck"
 require_relative "hand"
-require_relative "card"
+
 
 class Dealer
 
-	attr_reader :hand, :deck
+  attr_reader :hand, :deck
 
-	def initialize
-		@deck = Deck.new
+  def initialize
+    @deck = Deck.new
     @hand = Hand.new
-    2.times { self.deal(self) }
-	end
+  end
 
-	def deal(player)
-		player.hand.add(@deck.draw)
-	end 
+  def deal(player)
+    2.times { hit(player) }
+  end
 
-	def take_turn
-		while @hand.value < 17 do
-			puts "The Dealer hits."
-			self.deal(self)
-		end
-		if self.hand_value > 21
-			puts "The Dealer busts."
-		else
-			prints "The Dealer stands."
-		end
-	end 
+  def hit(player)
+    player.hand.add(@deck.draw)
+  end 
 
-	def busted?
-		hand_value > 21
-	end
+  def take_turn
+    deal(self)
+    
+    while hand_value < 17 do
+      puts "The Dealer hits."
+      hit(self)
+    end
+    
+    if busted?
+      puts "The Dealer busts."
+    else
+      print "The Dealer stands."
+    end
+  end 
 
-	def hand_value
-		@hand.value
-	end
+  def busted?
+    hand_value > 21
+  end
 
-	def shuffle
-		@deck.shuffle
-		@hand.clear
-	end
+  def hand_value
+    @hand.value
+  end
+
+  def shuffle
+    @deck.shuffle
+    @hand.clear
+  end
 
 end
