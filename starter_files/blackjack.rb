@@ -10,7 +10,7 @@ class BlackjackGame
 	end
 
 	def dealer_turn
-		@dealer.deal(@dealer)
+		@dealer.hit(@dealer)
 		while @dealer.hand_value < 17 do
 			puts "The Dealer hits."
 			@dealer.hit(@dealer)
@@ -18,14 +18,16 @@ class BlackjackGame
 		if @dealer.busted?
 			puts "The Dealer busts."
 		else
-			print "The Dealer stands.  The dealer has a total of #{@dealer.hand_value}."
+			print "The Dealer stands.  The dealer has a total of #{@dealer.hand_value}. "
 		end
 	end 
 
 	def player_turn
+		@dealer.hit(@dealer)
 		@dealer.deal(@player)
+		puts "The dealer is showing a #{@dealer.hand}."
 		while !@player.busted?
-			puts "You have a #{@player.hand} in your hand. Your total is #{@player.hand_value}."
+			puts "You have a #{@player.hand} in your hand. Your total is #{@player.hand_value}. "
 			if @player.hit?
 				@dealer.hit(@player)
 				puts 
